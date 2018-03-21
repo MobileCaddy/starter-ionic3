@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <mobilecaddy-sync (initialLoadComplete)="onInitialLoadComplete()" (tableSyncComplete)="onTableSyncComplete($event)" (tableSyncStatus)="
+    onTableSyncStatus($event)">
+  </mobilecaddy-sync>
+  <ion-list>
+    <ion-item class="project " *ngFor="let r of projects ">
+      <h3>{{r.Name}}</h3>
+      <p>{{r.mobilecaddy1__Description__c}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
