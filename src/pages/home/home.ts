@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
+import { MobileCaddySyncService } from '../../providers/mobilecaddy-sync.service';
 
 @Component({
   selector: 'page-home',
@@ -13,22 +14,25 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public loadingCtrl: LoadingController
+    private mobilecaddySyncService: MobileCaddySyncService
   ) {}
 
-  // This is called when the mobilecaddy-initial-sync emits the initialLoadCompleted event,
-  // and so we're ready to go.
-  onInitialLoadComplete(): void {
-    console.log(this.logTag, 'onInitialLoadComplete');
-    this.showAccounts();
-  }
-
-  onTableSyncComplete(event): void {
-    console.log(this.logTag, event);
-  }
-
-  onTableSyncStatus(event): void {
-    console.log(this.logTag, 'onTableSyncStatus', event);
+  ngOnInit() {
+    // As we are the first page, we check to see when the initialSync is completed.
+    this.mobilecaddySyncService
+      .getInitialSyncState()
+      .subscribe(initialSyncState => {
+        console.log(this.logTag, 'initialSyncState Update', initialSyncState);
+        if (initialSyncState == 'InitialLoadComplete') {
+          this.showAccounts();
+        }
+      });
+    this.mobilecaddySyncService.getSyncState().subscribe(initialSyncState => {
+      console.log(this.logTag, 'SyncState Update', initialSyncState);
+      if (initialSyncState == 'InitialLoadComplete') {
+        this.showAccounts();
+      }
+    });
   }
 
   showAccounts(): void {
