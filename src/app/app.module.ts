@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Components
 import { MobileCaddySyncComponentModule } from '../components/mobilecaddy-sync/mobilecaddy-sync.module';
+import { MobileCaddySyncIconComponentModule } from '../components/mobilecaddy-sync-icon/mobilecaddy-sync-icon.module';
 
 // Providers
 import { APP_CONFIG, AppConfig } from './app.config';
@@ -23,7 +24,8 @@ import { MobileCaddySyncService } from '../providers/mobilecaddy-sync.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    MobileCaddySyncComponentModule
+    MobileCaddySyncComponentModule,
+    MobileCaddySyncIconComponentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, InitPage, HomePage, ListPage],

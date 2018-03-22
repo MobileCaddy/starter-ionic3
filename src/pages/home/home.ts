@@ -27,12 +27,6 @@ export class HomePage {
           this.showAccounts();
         }
       });
-    this.mobilecaddySyncService.getSyncState().subscribe(initialSyncState => {
-      console.log(this.logTag, 'SyncState Update', initialSyncState);
-      if (initialSyncState == 'InitialLoadComplete') {
-        this.showAccounts();
-      }
-    });
   }
 
   showAccounts(): void {

@@ -52,8 +52,8 @@ export class MobileCaddySyncComponent implements OnInit {
     loader.present();
 
     this.mobilecaddySyncService.getSyncState().subscribe(res => {
-      console.log(this.logTag, 'SyncState Update1', res);
-      if (res == 'Completed') {
+      console.log(this.logTag, 'SyncState Update', res);
+      if (res == 'complete') {
         loader.dismiss();
       }
     });

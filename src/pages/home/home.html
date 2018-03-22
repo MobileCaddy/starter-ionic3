@@ -4,13 +4,14 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <mobilecaddy-sync-icon></mobilecaddy-sync-icon>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <mobilecaddy-sync (initialLoadComplete)="onInitialLoadComplete()" (tableSyncComplete)="onTableSyncComplete($event)" (tableSyncStatus)="
-    onTableSyncStatus($event)">
-  </mobilecaddy-sync>
+  <mobilecaddy-sync></mobilecaddy-sync>
   <ion-list>
     <ion-item class="project " *ngFor="let r of projects ">
       <h3>{{r.Name}}</h3>

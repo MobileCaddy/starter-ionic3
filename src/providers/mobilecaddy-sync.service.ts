@@ -8,6 +8,7 @@ export class MobileCaddySyncService {
   logTag: string = 'mobilecaddy-sync.service.ts';
   initialSyncState: BehaviorSubject<string> = new BehaviorSubject('');
   syncState: BehaviorSubject<string> = new BehaviorSubject('');
+  _syncState: string = '';
 
   constructor(@Inject(APP_CONFIG) private config: IAppConfig) {
     this.initialSyncState.next(localStorage.getItem('initialSyncState'));
@@ -17,20 +18,11 @@ export class MobileCaddySyncService {
   doInitialSync(): void {
     console.log(this.logTag, 'Calling initialSync');
     this.syncState.next('InitialSyncInProgress');
-    // return fromPromise(
-    //   devUtils.initialSync(this.config.initialSyncTables).then(res => {
-    //     localStorage.setItem('syncState', 'InitialLoadComplete');
-    //     console.log(this.logTag, 'InitialLoadComplete');
-    //     this.syncState.next('Completed');
-    //     return 'Complete';
-    //   })
-    // );
     devUtils.initialSync(this.config.initialSyncTables).then(res => {
       localStorage.setItem('initialSyncState', 'InitialLoadComplete');
       console.log(this.logTag, 'InitialLoadComplete');
       this.initialSyncState.next('InitialLoadComplete');
-      this.syncState.next('Completed');
-      // return 'Complete';
+      this.syncState.next('complete');
     });
   }
 
@@ -55,8 +47,7 @@ export class MobileCaddySyncService {
       console.log(this.logTag, 'syncTables');
       // TODO - put some local notification stuff in here.
       this.doSyncTables(tablesToSync).then(res => {
-        // this.tableSyncComplete.emit({ result: 'Complete' });
-        // setSyncState('Complete');
+        this.setSyncState('complete');
         if (!res || res.status == 100999) {
           // LocalNotificationService.setLocalNotification();
         } else {
@@ -70,8 +61,8 @@ export class MobileCaddySyncService {
   doSyncTables(tablesToSync: SyncTableConfig[]): Promise<any> {
     // Check that we not syncLocked or have a sync in progress
     let syncLock = this.getSyncLock();
-    let syncState = this.getSyncState();
-    if (syncLock == 'true' || syncState == 'syncing') {
+    // let syncState = this.getSyncState();
+    if (syncLock == 'true' || this._syncState == 'syncing') {
       return Promise.resolve({ status: 100999 });
     } else {
       this.setSyncState('syncing');
@@ -118,7 +109,7 @@ export class MobileCaddySyncService {
                   resObject.mc_add_status != 'no-sync-no-updates'
                 ) {
                   stopSyncing = true;
-                  this.setSyncState('Complete');
+                  this.setSyncState('complete');
                 }
             }
             // this.tableSyncStatus.emit({
@@ -135,7 +126,7 @@ export class MobileCaddySyncService {
               //     table: table.Name,
               //     result: e.status
               //   });
-              this.setSyncState('Complete');
+              this.setSyncState('complete');
             }
             return e;
           });
@@ -160,15 +151,6 @@ export class MobileCaddySyncService {
     localStorage.setItem(syncLockName, status);
   }
 
-  // getSyncState(): string {
-  //   var syncState = localStorage.getItem('syncState');
-  //   if (syncState === null) {
-  //     syncState = 'Complete';
-  //     localStorage.setItem('syncState', syncState);
-  //   }
-  //   return syncState;
-  // }
-
   getInitialSyncState(): BehaviorSubject<String> {
     return this.initialSyncState;
   }
@@ -180,7 +162,7 @@ export class MobileCaddySyncService {
   getSyncState(): BehaviorSubject<String> {
     var syncState = localStorage.getItem('syncState');
     if (syncState === null) {
-      syncState = 'Complete';
+      syncState = 'complete';
       localStorage.setItem('syncState', syncState);
     }
     // return syncState;
@@ -189,6 +171,7 @@ export class MobileCaddySyncService {
 
   setSyncState(status: string): void {
     localStorage.setItem('syncState', status);
+    this._syncState = status;
     this.syncState.next(status);
   }
 }
