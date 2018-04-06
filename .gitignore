@@ -39,4 +39,6 @@ src/assets/js/MockCordova.js
 src/assets/js/codeflow-emulator.js
 src/assets/js/mockVFRemote.js
 src/assets/js/force.js
+src/assets/js/underscore-min.js
 mc-tmp
+*.zip

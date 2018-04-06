@@ -12,10 +12,12 @@ import { ListPage } from '../pages/list/list';
 import {isDevMode} from "@angular/core";
 
 import * as devUtils from 'mobilecaddy-utils/devUtils';
+import * as syncRefresh from 'mobilecaddy-utils/syncRefresh';
 import * as _ from 'underscore';
 
 if (isDevMode()) {
   window['devUtils'] = devUtils;
+  window['syncRefresh'] = syncRefresh;
   window['_'] = _;
 }
 

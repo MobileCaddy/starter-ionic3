@@ -13,7 +13,8 @@ export interface SyncTableConfig {
   maxTableAge?: number;
 }
 
-const fourHours: number = 1000 * 60 * 60 * 4;
+// const fourHours: number = 1000 * 60 * 60 * 4;
+const oneMinute: number = 1000 * 60;
 
 export const AppConfig: IAppConfig = {
   initialSyncTables: ['Account__ap', 'Contact__ap'],
@@ -21,12 +22,12 @@ export const AppConfig: IAppConfig = {
     {
       Name: 'Account__ap',
       syncWithoutLocalUpdates: true,
-      maxTableAge: fourHours
+      maxTableAge: oneMinute
     },
     {
       Name: 'Contact__ap',
       syncWithoutLocalUpdates: true,
-      maxTableAge: fourHours
+      maxTableAge: oneMinute
     }
   ]
 };

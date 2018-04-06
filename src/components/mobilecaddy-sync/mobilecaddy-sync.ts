@@ -37,8 +37,15 @@ export class MobileCaddySyncComponent implements OnInit {
 
   ngOnInit() {
     if (this.mobilecaddySyncService.hasInitialSynCompleted()) {
-      this.doColdStartSync();
+      const coldStart = localStorage.getItem('coldStart')
+        ? localStorage.getItem('coldStart')
+        : false;
+      if (coldStart) {
+        localStorage.removeItem('coldStart');
+        this.doColdStartSync();
+      }
     } else {
+      localStorage.removeItem('coldStart');
       this.doInitialSync();
     }
   }

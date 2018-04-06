@@ -7,9 +7,9 @@ import { MobileCaddySyncService } from '../../providers/mobilecaddy-sync.service
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
   logTag: string = 'home.ts';
-  projects;
+  accounts;
   accountTable: string = 'Account__ap';
 
   constructor(
@@ -32,7 +32,16 @@ export class HomePage {
   showAccounts(): void {
     devUtils.readRecords(this.accountTable).then(res => {
       console.log('res', res);
-      this.projects = res.records;
+      this.accounts = res.records;
     });
+  }
+
+  doSync(event): void {
+    console.log(this.logTag, 'doSync');
+    this.mobilecaddySyncService
+      .syncTables([{ Name: this.accountTable }])
+      .then(function(r) {
+        alert(r.status);
+      });
   }
 }
