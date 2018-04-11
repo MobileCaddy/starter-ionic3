@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content padding>
-  <mobilecaddy-sync></mobilecaddy-sync>
+  <mobilecaddy-sync [config]="config"></mobilecaddy-sync>
   <ion-list>
     <ion-item class="account " *ngFor="let r of accounts ">
       {{r.Name}}

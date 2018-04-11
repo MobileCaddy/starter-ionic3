@@ -12,23 +12,23 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Components
-import { MobileCaddySyncComponentModule } from '../components/mobilecaddy-sync/mobilecaddy-sync.module';
+// import { MobileCaddySyncComponentModule } from '../components/mobilecaddy-sync/mobilecaddy-sync.module';
 // import { MobileCaddySyncIconComponentModule } from 'mobilecaddy-angular/sync-icon/mobilecaddy-sync-icon.module';
-import { MobileCaddySyncIconModule } from 'mobilecaddy-angular';
+import { MobileCaddyModule } from 'mobilecaddy-angular';
 // import { SyncIconModule } from 'mobilecaddy-angular-lib';
 
 // Providers
 import { APP_CONFIG, AppConfig } from './app.config';
-import { MobileCaddySyncService } from '../providers/mobilecaddy-sync.service';
+// import { MobileCaddySyncService } from '../providers/mobilecaddy-sync.service';
 
 @NgModule({
   declarations: [MyApp, InitPage, HomePage, ListPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    MobileCaddySyncComponentModule,
+    // MobileCaddySyncComponentModule,
     // SyncIconModule
-    MobileCaddySyncIconModule
+    MobileCaddyModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, InitPage, HomePage, ListPage],
@@ -36,8 +36,8 @@ import { MobileCaddySyncService } from '../providers/mobilecaddy-sync.service';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: APP_CONFIG, useValue: AppConfig },
-    MobileCaddySyncService
+    { provide: APP_CONFIG, useValue: AppConfig }
+    // MobileCaddySyncService
   ]
 })
 export class AppModule {}

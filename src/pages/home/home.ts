@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
-import { MobileCaddySyncService } from '../../providers/mobilecaddy-sync.service';
+// import { MobileCaddySyncService } from '../../providers/mobilecaddy-sync.service';
+import { MobileCaddySyncService } from 'mobilecaddy-angular';
+import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
 @Component({
   selector: 'page-home',
@@ -11,10 +13,12 @@ export class HomePage implements OnInit {
   logTag: string = 'home.ts';
   accounts;
   accountTable: string = 'Account__ap';
+  config: IAppConfig;
 
   constructor(
     public navCtrl: NavController,
-    private mobilecaddySyncService: MobileCaddySyncService
+    private mobilecaddySyncService: MobileCaddySyncService,
+    @Inject(APP_CONFIG) private appConfig: IAppConfig
   ) {}
 
   ngOnInit() {
@@ -27,6 +31,7 @@ export class HomePage implements OnInit {
           this.showAccounts();
         }
       });
+    this.config = this.appConfig;
   }
 
   showAccounts(): void {

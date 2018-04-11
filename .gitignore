@@ -27,7 +27,7 @@ platforms/
 plugins/
 plugins/android.json
 plugins/ios.json
-www/
+www/*
 $RECYCLE.BIN/
 
 .DS_Store
@@ -41,4 +41,5 @@ src/assets/js/mockVFRemote.js
 src/assets/js/force.js
 src/assets/js/underscore-min.js
 mc-tmp
+!www/mock
 *.zip

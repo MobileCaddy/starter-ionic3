@@ -29,8 +29,7 @@
     "@ionic/storage": "2.1.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "mobilecaddy-angular": "file:../../mc/mobilecaddy-angular/dist/mobilecaddy-angular-0.0.1.tgz",
-    "mobilecaddy-angular-lib": "file:../../mc/mobilecaddy-angular-lib/dist/mobilecaddy-angular-lib-0.0.0.tgz",
+    "mobilecaddy-angular": "file:../mc-angular-tmp/dist/mobilecaddy-angular/mobilecaddy-angular-0.0.1.tgz",
     "mobilecaddy-utils": "git+https://github.com/mobilecaddy/mobilecaddy-utils.git#v2",
     "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
@@ -39,7 +38,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
-    "typescript": "~2.6.2",
-    "mobilecaddy-codeflow": "git+https://github.com/mobilecaddy/codeflow.git#v2"
+    "mobilecaddy-codeflow": "git+https://github.com/mobilecaddy/codeflow.git#v2",
+    "typescript": "~2.6.2"
   }
 }
