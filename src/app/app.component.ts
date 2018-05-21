@@ -7,9 +7,11 @@ import { InitPage } from '../pages/init/init';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { OutboxPage } from '../pages/outbox/outbox';
+import { SettingsPage } from 'mobilecaddy-angular';
 
 // DEV STUFF
-import {isDevMode} from "@angular/core";
+import { isDevMode } from '@angular/core';
 
 import * as devUtils from 'mobilecaddy-utils/devUtils';
 import * as syncRefresh from 'mobilecaddy-utils/syncRefresh';
@@ -29,17 +31,22 @@ export class MyApp {
 
   rootPage: any = InitPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string; component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Accounts', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Outbox', component: OutboxPage },
+      { title: 'Settings', component: SettingsPage }
     ];
-
   }
 
   initializeApp() {

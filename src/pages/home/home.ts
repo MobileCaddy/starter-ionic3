@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
 import { MobileCaddySyncService } from 'mobilecaddy-angular';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
+import { Network } from '@ionic-native/network';
 
 @Component({
   selector: 'page-home',
@@ -17,7 +18,8 @@ export class HomePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private mobilecaddySyncService: MobileCaddySyncService,
-    @Inject(APP_CONFIG) private appConfig: IAppConfig
+    @Inject(APP_CONFIG) private appConfig: IAppConfig,
+    private network: Network
   ) {}
 
   ngOnInit() {
@@ -31,6 +33,24 @@ export class HomePage implements OnInit {
         }
       });
     this.config = this.appConfig;
+
+    // watch network for a disconnect
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected :-(');
+    });
+
+    // watch network for a connection
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      // We just got a connection but we need to wait briefly
+      // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('we got a wifi connection, woohoo!');
+        }
+      }, 3000);
+    });
   }
 
   showAccounts(): void {
