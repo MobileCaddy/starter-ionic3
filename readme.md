@@ -46,6 +46,10 @@ npm run mobilecaddy setup
 mobilecaddy serve
 ```
 
+Note (1), to use the `scrub` and `local` serve params please enter them in by hand into the URl and reload the page.
+
+Note (2), this project comes with Mock Accounts records in the project.
+
 ### With the old CLI
 
 * We need to start a CORS server (if wanting to communiacate with SFDC, i.e. when not using mock data).
