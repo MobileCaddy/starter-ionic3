@@ -14,7 +14,14 @@
 </ion-header>
 
 <ion-content padding>
+  <!-- 
+    * This mobilecaddy-sync component below should always be inside the
+    * app's 'home' page. It handles setting up config for MobileCaddy and
+    * running the initial data sync, and any syncs that take place upon
+    * application start-ups
+  -->
   <mobilecaddy-sync [config]="config"></mobilecaddy-sync>
+
   <ion-list>
     <ion-item class="account " *ngFor="let r of accounts ">
       {{r.Name}}
