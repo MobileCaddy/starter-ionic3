@@ -4,14 +4,16 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MobileCaddyModule } from 'mobilecaddy-angular';
 import { Network } from '@ionic-native/network';
 
-// Pages
+// MobileCaddy - DO NOT REMOVE
 import { InitPage } from '../pages/init/init';
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { OutboxPage } from '../pages/outbox/outbox';
 import { SettingsPage } from 'mobilecaddy-angular';
 import { MCOutboxPage } from 'mobilecaddy-angular';
+import { MobileCaddySyncService } from 'mobilecaddy-angular';
+
+// Pages
+import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
+import { OutboxPage } from '../pages/outbox/outbox';
 
 // Native
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,10 +23,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Providers
 import { APP_CONFIG, AppConfig } from './app.config';
-import { MobileCaddySyncService } from 'mobilecaddy-angular';
 
 @NgModule({
-  declarations: [MyApp, InitPage, HomePage, ListPage, OutboxPage],
+  declarations: [MyApp, InitPage, HomePage, OutboxPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -35,7 +36,6 @@ import { MobileCaddySyncService } from 'mobilecaddy-angular';
     MyApp,
     InitPage,
     HomePage,
-    ListPage,
     OutboxPage,
     SettingsPage,
     MCOutboxPage

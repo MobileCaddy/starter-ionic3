@@ -1,10 +1,8 @@
 # MobileCaddy Starter for Ionic
 
-
 ## Prerequisites
 
 * Node v8.5.0+
-
 
 ## Getting Started
 
@@ -13,6 +11,7 @@ There are 2 ways to get started - the best is to use the MobileCaddy CLI, and th
 ### 1) Use the MobileCaddy CLI (preferred)
 
 First install the v2 MobileCaddy CLI
+
 ```
 npm i -g https://github.com/MobileCaddy/mobilecaddy-cli.git#unstable-v2
 ```
@@ -20,7 +19,7 @@ npm i -g https://github.com/MobileCaddy/mobilecaddy-cli.git#unstable-v2
 You can then start a new MobileCaddy project (from this repo) with this command. The last arg is the name of your new project
 
 ```
-mobilecaddy new https://github.com/toddhalfpenny/mobilecaddy-ionic3-poc/archive/master.zip myNewApp
+mobilecaddy new https://github.com/toddhalfpenny/mobilecaddy-ionic3-account-contact/archive/master.zip myNewApp
 ```
 
 ### 2) Manual Approach
@@ -28,11 +27,13 @@ mobilecaddy new https://github.com/toddhalfpenny/mobilecaddy-ionic3-poc/archive/
 * Clone, or download and unzip, this repo, and `cd` into the dir
 
 * Install dependencies
+
 ```
 npm install
 ```
 
 * Run MobileCaddy setup script
+
 ```
 npm run mobilecaddy setup
 ```
@@ -48,11 +49,13 @@ mobilecaddy serve
 ### With the old CLI
 
 * We need to start a CORS server (if wanting to communiacate with SFDC, i.e. when not using mock data).
+
 ```
 npm run mobilecaddy cors
 ```
 
 * Start your app in a new shell with this
+
 ```
 ionic serve --p 3030
 ```
@@ -70,10 +73,10 @@ mobilecaddy serve --rec
 ```
 
 ### With the old CLI
+
 ```
 npm run mobilecaddy cors record
 ```
-
 
 ## Using the MobileCaddy libs in your app
 

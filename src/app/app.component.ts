@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InitPage } from '../pages/init/init';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { OutboxPage } from '../pages/outbox/outbox';
 import { SettingsPage } from 'mobilecaddy-angular';
 
@@ -43,7 +42,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Accounts', component: HomePage },
-      { title: 'List', component: ListPage },
       { title: 'Outbox', component: OutboxPage },
       { title: 'Settings', component: SettingsPage }
     ];
