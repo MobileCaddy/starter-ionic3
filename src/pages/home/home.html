@@ -20,11 +20,11 @@
     * running the initial data sync, and any syncs that take place upon
     * application start-ups
   -->
-  <mobilecaddy-sync [config]="config"></mobilecaddy-sync>
+  <mobilecaddy-sync [config]="config" [showLoader]="false"></mobilecaddy-sync>
 
   <ion-list>
-    <ion-item class="account " *ngFor="let r of accounts ">
-      {{r.Name}}
+    <ion-item class="account " *ngFor="let r of accounts" (click)="goToAccount(r)">
+      {{r[1]}}
     </ion-item>
   </ion-list>
 </ion-content>

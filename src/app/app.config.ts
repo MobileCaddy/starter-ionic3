@@ -7,17 +7,27 @@ export interface IAppConfig {
   coldStartSyncTables: SyncTableConfig[];
   forceSyncTables: SyncTableConfig[];
   outboxTables?: OutBoxTableConfig[];
+  recentItems?: RecentItemsConfig;
+  globalSearch?: any;
 }
 
 export interface SyncTableConfig {
   Name: string;
   syncWithoutLocalUpdates?: boolean;
   maxTableAge?: number;
+  maxRecsPerCall?: number;
+  skipP2M?: boolean;
 }
 
 export interface OutBoxTableConfig {
   Name: string;
   DisplayName: string;
+}
+
+export interface RecentItemsConfig {
+  maxItems?: number;
+  encrypted?: boolean;
+  tables?: any;
 }
 
 // const fourHours: number = 1000 * 60 * 60 * 4;
@@ -57,5 +67,47 @@ export const AppConfig: IAppConfig = {
   outboxTables: [
     { Name: 'Account__ap', DisplayName: 'Accounts' },
     { Name: 'Contact__ap', DisplayName: 'Contacts' }
-  ]
+  ],
+
+  recentItems: {
+    maxItems: 50,
+    encrypted: false,
+    tables: [
+      {
+        name: 'Account',
+        icon: 'ion-folder',
+        href: '/accounts/:Id'
+      },
+      {
+        name: 'Contact',
+        icon: 'ion-person',
+        href: '/accounts/:AccountId/contacts/:Id'
+      }
+    ]
+  },
+
+  globalSearch: {
+    maxItems: 10,
+    encrypted: false,
+    tables: [
+      {
+        table: 'Account__ap',
+        name: 'Accounts',
+        fieldsToQuery: ['Name', 'Description'],
+        fieldsToShow: ['Name', 'BillingCountry'],
+        icon: 'folder',
+        pageName: 'AccountDetailPage',
+        navParamName: 'account'
+      },
+      {
+        table: 'Contact__ap',
+        name: 'Contacts',
+        fieldsToQuery: ['Name', 'Email'],
+        fieldsToShow: ['Name', 'Title'],
+        icon: 'person',
+        pageName: 'ContactDetailPage',
+        navParamName: 'contact'
+      }
+    ]
+  }
 };

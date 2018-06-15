@@ -6,21 +6,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InitPage } from '../pages/init/init';
 
 import { HomePage } from '../pages/home/home';
-import { OutboxPage } from '../pages/outbox/outbox';
 import { SettingsPage } from 'mobilecaddy-angular';
 
 // DEV STUFF
-import { isDevMode } from '@angular/core';
+// import { isDevMode } from '@angular/core';
 
-import * as devUtils from 'mobilecaddy-utils/devUtils';
-import * as syncRefresh from 'mobilecaddy-utils/syncRefresh';
-import * as _ from 'underscore';
+// import * as devUtils from 'mobilecaddy-utils/devUtils';
+// import * as syncRefresh from 'mobilecaddy-utils/syncRefresh';
+// import * as _ from 'underscore';
 
-if (isDevMode()) {
-  window['devUtils'] = devUtils;
-  window['syncRefresh'] = syncRefresh;
-  window['_'] = _;
-}
+// if (isDevMode()) {
+//   window['devUtils'] = devUtils;
+//   window['syncRefresh'] = syncRefresh;
+//   window['_'] = _;
+// }
 
 @Component({
   templateUrl: 'app.html'
@@ -42,7 +41,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Accounts', component: HomePage },
-      { title: 'Outbox', component: OutboxPage },
+      { title: 'Search', component: 'SearchPage' },
+      { title: 'Outbox', component: 'OutboxPage' },
       { title: 'Settings', component: SettingsPage }
     ];
   }
