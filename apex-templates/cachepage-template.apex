@@ -30,12 +30,16 @@ CACHE:
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'assets/fonts/ionicons.WOFF2')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'assets/fonts/roboto-regular.WOFF2')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'assets/fonts/roboto-medium.WOFF2')}
+{!URLFOR($Resource.<MY_APP_RESOURCE>, 'assets/fonts/roboto-bold.WOFF2')}
 
+
+{!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/vendor.js')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/main.js')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/polyfills.js')}
-{!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/vendor.js')}
+
 #FOLLOWING COMMENT IS REPLACED WITH RELEVANT FILES FROM THE WWW/BUILD DIR
 <!-- BUILD-SCRIPTS-DO-NOT-REMOVE -->
+
 
 #sessionid to force reload cache everytime the app is online:{!GETSESSIONID()}
 
