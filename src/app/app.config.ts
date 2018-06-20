@@ -3,12 +3,18 @@ import { InjectionToken } from '@angular/core';
 export let APP_CONFIG = new InjectionToken('app.config');
 
 export interface IAppConfig {
+  indexSpecs?: indexSpecConfig[];
   initialSyncTables: string[];
   coldStartSyncTables: SyncTableConfig[];
   forceSyncTables: SyncTableConfig[];
   outboxTables?: OutBoxTableConfig[];
   recentItems?: RecentItemsConfig;
   globalSearch?: any;
+}
+
+export interface indexSpecConfig {
+  table: string;
+  specs: Array<{ path: string; type: string }>;
 }
 
 export interface SyncTableConfig {
@@ -34,6 +40,19 @@ export interface RecentItemsConfig {
 const oneMinute: number = 1000 * 60;
 
 export const AppConfig: IAppConfig = {
+  // Set our own indexSpecs
+  indexSpecs: [
+    {
+      table: 'Account__ap',
+      specs: [
+        { path: 'Id', type: 'string' },
+        { path: 'Name', type: 'string' },
+        { path: 'Description', type: 'string' },
+        { path: 'BillingCountry', type: 'string' }
+      ]
+    }
+  ],
+
   // Tables to sync on initialSync
   initialSyncTables: ['Account__ap', 'Contact__ap'],
 
@@ -93,8 +112,8 @@ export const AppConfig: IAppConfig = {
       {
         table: 'Account__ap',
         name: 'Accounts',
-        fieldsToQuery: ['Name', 'Description'],
-        fieldsToShow: ['Name', 'BillingCountry'],
+        fieldsToQuery: ['Name'],
+        fieldsToShow: ['Name'],
         icon: 'folder',
         pageName: 'AccountDetailPage',
         navParamName: 'account'
