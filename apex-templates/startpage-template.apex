@@ -16,6 +16,7 @@
 
     <meta name="theme-color" content="#4e8ef7" />
 
+    <script src="{!URLFOR($Resource.<MY_APP_RESOURCE>, 'mobilecaddyPreBootstrap.js')}"></script>
     <script src="https://localhost/cordova.js"></script>
     <script src="{!URLFOR($Resource[cordovaLocalResource])}" type="text/javascript"></script>
 

@@ -33,6 +33,7 @@ CACHE:
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'assets/fonts/roboto-bold.WOFF2')}
 
 
+{!URLFOR($Resource.<MY_APP_RESOURCE>, 'mobilecaddyPreBootstrap.js')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/vendor.js')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/main.js')}
 {!URLFOR($Resource.<MY_APP_RESOURCE>, 'build/polyfills.js')}
