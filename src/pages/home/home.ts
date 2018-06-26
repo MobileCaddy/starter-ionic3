@@ -3,6 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
 import { MobileCaddySyncService } from 'mobilecaddy-angular';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
+import * as _ from 'underscore';
 
 const logTag: string = 'home.ts';
 
@@ -62,11 +63,14 @@ export class HomePage implements OnInit {
       this.accountTable +
       ':Name} FROM {' +
       this.accountTable +
-      '} ORDER BY NAME';
+      '}';
     devUtils.smartSql(soql).then(res => {
       console.log('res', res);
+      // Sort by Name
+      this.accounts = _.sortBy(res.records, el => {
+        return el[1];
+      });
       this.loader.dismiss();
-      this.accounts = res.records;
     });
   }
 
