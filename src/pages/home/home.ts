@@ -90,11 +90,9 @@ export class HomePage implements OnInit {
       if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
     });
 
-    this.mobilecaddySyncService
-      .syncTables([{ Name: this.accountTable }])
-      .then(r => {
-        this.loader.dismiss();
-      });
+    this.mobilecaddySyncService.syncTables('mySync').then(r => {
+      this.loader.dismiss();
+    });
   }
 
   goToAccount(a): void {

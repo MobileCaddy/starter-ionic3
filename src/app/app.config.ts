@@ -7,6 +7,7 @@ export interface IAppConfig {
   initialSyncTables: string[];
   coldStartSyncTables: SyncTableConfig[];
   forceSyncTables: SyncTableConfig[];
+  syncPoints?: SyncPointConfig[];
   outboxTables?: OutBoxTableConfig[];
   recentItems?: RecentItemsConfig;
   globalSearch?: any;
@@ -15,6 +16,11 @@ export interface IAppConfig {
 export interface indexSpecConfig {
   table: string;
   specs: Array<{ path: string; type: string }>;
+}
+
+export interface SyncPointConfig {
+  name: string;
+  tableConfig: SyncTableConfig[];
 }
 
 export interface SyncTableConfig {
@@ -83,6 +89,18 @@ export const AppConfig: IAppConfig = {
       maxTableAge: 0
     }
   ],
+
+  syncPoints: [
+    {
+      name: 'mySync',
+      tableConfig: [
+        {
+          Name: 'Contact__ap'
+        }
+      ]
+    }
+  ],
+
   outboxTables: [
     { Name: 'Account__ap', DisplayName: 'Accounts' },
     { Name: 'Contact__ap', DisplayName: 'Contacts' }
