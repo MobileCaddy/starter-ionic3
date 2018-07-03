@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
-import { MobileCaddySyncService } from 'mobilecaddy-angular';
+import {
+  MobileCaddyStartupService,
+  MobileCaddySyncService
+} from 'mobilecaddy-angular';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 import * as _ from 'underscore';
 
@@ -21,22 +24,39 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     private mobilecaddySyncService: MobileCaddySyncService,
+    private mobilecaddyStartupService: MobileCaddyStartupService,
     @Inject(APP_CONFIG) private appConfig: IAppConfig
   ) {}
 
   ngOnInit() {
-    // As we are the first page, we check to see when the initialSync is completed.
+    /**
+     * In this example code we're going to show a loader. As this is also the
+     * 1st page in the app we need to initialise MobileCaddy. There is an
+     * observable we can listen to to get the init status (inc initialSync
+     * status)
+     *
+     * This pattern can be copied for your app's first page.
+     */
+
     this.loader = this.loadingCtrl.create({
       content: 'Preparing data...',
       duration: 120000
     });
     this.loader.present();
 
-    this.mobilecaddySyncService.getSyncState().subscribe(res => {
-      console.log(logTag, 'SyncState Update', res);
-      if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
+    // Call the MobileCaddt startup, passing our config in.
+    this.mobilecaddyStartupService.startup(this.appConfig);
+
+    // Subscribe to the observable so we can update our loader text
+    this.mobilecaddyStartupService.getInitState().subscribe(res => {
+      console.log(logTag, 'Init Update', res);
+      if (res) {
+        if (res.status === -1) this.loader.setContent(res.info);
+        if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
+      }
     });
 
+    // Check to see if our initialSync has completed, if so we can show our accounts
     this.mobilecaddySyncService
       .getInitialSyncState()
       .subscribe(initialSyncState => {
@@ -45,7 +65,6 @@ export class HomePage implements OnInit {
           this.showAccounts();
         }
       });
-    this.config = this.appConfig;
   }
 
   ionViewDidEnter() {

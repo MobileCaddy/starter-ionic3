@@ -6,7 +6,6 @@ import { MobileCaddyModule } from 'mobilecaddy-angular';
 import { Network } from '@ionic-native/network';
 
 // MobileCaddy - DO NOT REMOVE
-import { InitPage } from '../pages/init/init';
 import { SettingsPage, MCOutboxPage } from 'mobilecaddy-angular';
 
 // Pages
@@ -23,7 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { APP_CONFIG, AppConfig } from './app.config';
 
 @NgModule({
-  declarations: [MyApp, InitPage, HomePage],
+  declarations: [MyApp, HomePage],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -31,7 +30,7 @@ import { APP_CONFIG, AppConfig } from './app.config';
     MobileCaddyModule.forRoot()
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, InitPage, HomePage, SettingsPage, MCOutboxPage],
+  entryComponents: [MyApp, HomePage, SettingsPage, MCOutboxPage],
   providers: [
     StatusBar,
     SplashScreen,
