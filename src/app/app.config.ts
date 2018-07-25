@@ -5,8 +5,6 @@ export let APP_CONFIG = new InjectionToken('app.config');
 export interface IAppConfig {
   indexSpecs?: indexSpecConfig[];
   initialSyncTables: string[];
-  coldStartSyncTables: SyncTableConfig[];
-  forceSyncTables: SyncTableConfig[];
   syncPoints?: SyncPointConfig[];
   outboxTables?: OutBoxTableConfig[];
   recentItems?: RecentItemsConfig;
@@ -20,6 +18,7 @@ export interface indexSpecConfig {
 
 export interface SyncPointConfig {
   name: string;
+  skipSyncPeriod?: number; // Seconds
   tableConfig: SyncTableConfig[];
 }
 
@@ -62,37 +61,40 @@ export const AppConfig: IAppConfig = {
   // Tables to sync on initialSync
   initialSyncTables: ['Account__ap', 'Contact__ap'],
 
-  // Tables to sync on Cold Start
-  coldStartSyncTables: [
-    {
-      Name: 'Account__ap',
-      syncWithoutLocalUpdates: true,
-      maxTableAge: oneMinute
-    },
-    {
-      Name: 'Contact__ap',
-      syncWithoutLocalUpdates: true,
-      maxTableAge: oneMinute
-    }
-  ],
-
-  // Tables used in Outbox and Settings Sync
-  forceSyncTables: [
-    {
-      Name: 'Account__ap',
-      syncWithoutLocalUpdates: true,
-      maxTableAge: 0
-    },
-    {
-      Name: 'Contact__ap',
-      syncWithoutLocalUpdates: true,
-      maxTableAge: 0
-    }
-  ],
-
   syncPoints: [
     {
+      name: 'coldStart',
+      tableConfig: [
+        {
+          Name: 'Account__ap',
+          syncWithoutLocalUpdates: true,
+          maxTableAge: 0
+        },
+        {
+          Name: 'Contact__ap',
+          syncWithoutLocalUpdates: true,
+          maxTableAge: 0
+        }
+      ]
+    },
+    {
+      name: 'forceSync',
+      tableConfig: [
+        {
+          Name: 'Account__ap',
+          syncWithoutLocalUpdates: true,
+          maxTableAge: 0
+        },
+        {
+          Name: 'Contact__ap',
+          syncWithoutLocalUpdates: true,
+          maxTableAge: 0
+        }
+      ]
+    },
+    {
       name: 'mySync',
+      skipSyncPeriod: 30,
       tableConfig: [
         {
           Name: 'Contact__ap'
