@@ -133,20 +133,34 @@ export const AppConfig: IAppConfig = {
         table: 'Account__ap',
         name: 'Accounts',
         fieldsToQuery: ['Name'],
-        fieldsToShow: ['Name'],
+        displayFields: [
+          {
+            fields: ['Name', 'BillingState'],
+            tags: ['h2', 'p']
+          }
+        ],
         icon: 'folder',
         pageName: 'AccountDetailPage',
         navParamName: 'account'
-      },
-      {
-        table: 'Contact__ap',
-        name: 'Contacts',
-        fieldsToQuery: ['Name', 'Email'],
-        fieldsToShow: ['Name', 'Title'],
-        icon: 'person',
-        pageName: 'ContactDetailPage',
-        navParamName: 'contact'
       }
+      // We could add further config, like this :)
+      // {
+      //   table: 'Contact__ap',
+      //   name: 'Contacts',
+      //   fieldsToQuery: ['Name', 'Email'],
+      //   displayFields: [
+      //     {
+      //       fields: ['Name']
+      //     },
+      //     {
+      //       fields: ['Title'],
+      //       tags: ['p']
+      //     }
+      //   ],
+      //   icon: 'person',
+      //   pageName: 'ContactDetailPage',
+      //   navParamName: 'contact'
+      // }
     ]
   }
 };
