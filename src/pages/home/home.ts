@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import * as devUtils from 'mobilecaddy-utils/devUtils';
-import {
-  MobileCaddyStartupService,
-  MobileCaddySyncService
-} from 'mobilecaddy-angular';
+import { McStartupService, McSyncService } from 'mobilecaddy-angular';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 import * as _ from 'underscore';
 
@@ -19,12 +16,15 @@ export class HomePage implements OnInit {
   accountTable: string = 'Account__ap';
   config: IAppConfig;
   private loader: any;
+  private mcInitStateSub;
+  private mcInitSyncSub;
+  private syncSub;
 
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    private mobilecaddySyncService: MobileCaddySyncService,
-    private mobilecaddyStartupService: MobileCaddyStartupService,
+    private mcSyncService: McSyncService,
+    private mcStartupService: McStartupService,
     @Inject(APP_CONFIG) private appConfig: IAppConfig
   ) {}
 
@@ -45,26 +45,26 @@ export class HomePage implements OnInit {
     this.loader.present();
 
     // Call the MobileCaddt startup, passing our config in.
-    this.mobilecaddyStartupService.startup(this.appConfig);
+    this.mcStartupService.startup(this.appConfig);
 
     // Subscribe to the observable so we can update our loader text
-    this.mobilecaddyStartupService.getInitState().subscribe(res => {
-      console.log(logTag, 'Init Update', res);
-      if (res) {
-        if (res.status === -1) this.loader.setContent(res.info);
-        if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
-      }
-    });
-
-    // Check to see if our initialSync has completed, if so we can show our accounts
-    this.mobilecaddySyncService
-      .getInitialSyncState()
-      .subscribe(initialSyncState => {
-        console.log(logTag, 'initialSyncState Update', initialSyncState);
-        if (initialSyncState == 'InitialLoadComplete') {
-          this.showAccounts();
+    this.mcInitSyncSub = this.mcInitStateSub = this.mcStartupService
+      .getInitState()
+      .subscribe(res => {
+        console.log(logTag, 'Init Update', res);
+        if (res) {
+          if (res.status === -1) this.loader.setContent(res.info);
+          if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
         }
       });
+
+    // Check to see if our initialSync has completed, if so we can show our accounts
+    this.mcSyncService.getInitialSyncState().subscribe(initialSyncState => {
+      console.log(logTag, 'initialSyncState Update', initialSyncState);
+      if (initialSyncState == 'InitialLoadComplete') {
+        this.showAccounts();
+      }
+    });
   }
 
   ionViewDidEnter() {
@@ -97,19 +97,20 @@ export class HomePage implements OnInit {
     console.log(logTag, 'doSync');
 
     // You're unlikely to really want to show a loader whilst a background sync takes place,
-    // but this is an example of using the mobilecaddySyncService.getSyncState() observable.
+    // but this is an example of using the mcSyncService.getSyncState() observable.
     this.loader = this.loadingCtrl.create({
       content: 'Syncing...',
       duration: 120000
     });
     this.loader.present();
 
-    this.mobilecaddySyncService.getSyncState().subscribe(res => {
+    if (this.syncSub) this.syncSub.unsubscribe();
+    this.syncSub = this.mcSyncService.getSyncState().subscribe(res => {
       console.log(logTag, 'SyncState Update', res);
       if (res.status === 0) this.loader.setContent('Syncing ' + res.table);
     });
 
-    this.mobilecaddySyncService.syncTables('mySync').then(r => {
+    this.mcSyncService.syncTables('mySync').then(r => {
       this.loader.dismiss();
     });
   }
@@ -120,5 +121,10 @@ export class HomePage implements OnInit {
       id: a[0], // We set this as well, for our IonicPage segment
       account: { Id: a[0], Name: a[1] }
     });
+  }
+
+  ionViewDidLeave() {
+    this.mcInitStateSub.unsubscribe();
+    this.mcInitSyncSub.unsubscribe();
   }
 }
