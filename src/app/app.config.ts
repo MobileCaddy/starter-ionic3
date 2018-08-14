@@ -3,6 +3,7 @@ import { InjectionToken } from '@angular/core';
 export let APP_CONFIG = new InjectionToken('app.config');
 
 export interface IAppConfig {
+  version: string;
   indexSpecs?: indexSpecConfig[];
   initialSyncTables: string[];
   syncPoints?: SyncPointConfig[];
@@ -45,6 +46,9 @@ export interface RecentItemsConfig {
 const oneMinute: number = 1000 * 60;
 
 export const AppConfig: IAppConfig = {
+  // Our app's version
+  version: '1.0.0',
+
   // Set our own indexSpecs
   indexSpecs: [
     {
