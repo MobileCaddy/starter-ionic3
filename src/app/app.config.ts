@@ -10,6 +10,12 @@ export interface IAppConfig {
   outboxTables?: OutBoxTableConfig[];
   recentItems?: RecentItemsConfig;
   globalSearch?: any;
+  onResume?: OnResumeConfig;
+  onNavigation?: OnNavigationConfig;
+  onColdStart?: OnColdStartConfig;
+  upgradeOptions?: UpgradeOptionsConfig;
+  lockScreenOptions?: LockScreenOptionsConfig;
+  platformPinChallengeOptions?: PlatformPinChallengeOptionsConfig;
 }
 
 export interface indexSpecConfig {
@@ -40,6 +46,59 @@ export interface RecentItemsConfig {
   maxItems?: number;
   encrypted?: boolean;
   tables?: any;
+}
+
+
+export interface PageConfig {
+  id: string; // Name of the page from the navCtrl
+  syncPoint?: string;
+  showSyncLoader?: boolean; // default false
+  skipSyncPeriod?: number; // Number of secs - If last successful sync was in this time then we don’t sync
+}
+
+export interface OnResumeConfig {
+  checkPausePeriod?: boolean;
+  maxPausePeriod?: number;
+  presentLockScreen?: boolean;
+  pages?: PageConfig[];
+}
+
+export interface OnNavigationConfig {
+  checkPausePeriod?: boolean;
+  maxPausePeriod?: number;
+  presentLockScreen?: boolean;
+  pages?: PageConfig[];
+}
+
+export interface OnColdStartConfig {
+  checkPausePeriod?: boolean;
+  maxPausePeriod?: number;
+  presentLockScreen?: boolean;
+  showSyncLoader?: boolean;
+  showBuildMsgs?: boolean;
+}
+
+export interface UpgradeOptionsConfig {
+  ignoreRepromptPeriod?: boolean;
+  maxPostpones?: number;
+  noRepromptPeriod?: number;
+  popupText?: string[];
+}
+
+export interface LockScreenOptionsConfig {
+  lockScreenText?: string[];
+  lockScreenAttempts?: number;
+  getCodePopupText?: string[];
+}
+
+export interface PlatformPinChallengeOptionsConfig {
+  bypassChallenge?: boolean;
+  timeoutPeriod?: number;
+  showCancel?: boolean;
+  maxAttempts?: number;
+  popupText?: string[];
+  alertOptions?: any;
+  toastOptions?: any;
 }
 
 // const fourHours: number = 1000 * 60 * 60 * 4;
