@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* Node v8.5.0+
+- Node v8.5.0+
 
 ## Getting Started
 
@@ -19,20 +19,20 @@ npm i -g https://github.com/MobileCaddy/mobilecaddy-cli.git#unstable-v2
 You can then start a new MobileCaddy project (from this repo) with this command. The last arg is the name of your new project
 
 ```
-mobilecaddy new https://github.com/toddhalfpenny/mobilecaddy-ionic3-account-contact/archive/master.zip myNewApp
+mobilecaddy new https://github.com/MobileCaddy/starter-ionic3/archive/master.zip myNewApp
 ```
 
 ### 2) Manual Approach
 
-* Clone, or download and unzip, this repo, and `cd` into the dir
+- Clone, or download and unzip, this repo, and `cd` into the dir
 
-* Install dependencies
+- Install dependencies
 
 ```
 npm install
 ```
 
-* Run MobileCaddy setup script
+- Run MobileCaddy setup script
 
 ```
 npm run mobilecaddy setup
@@ -52,13 +52,13 @@ Note (2), this project comes with Mock Accounts records in the project.
 
 ### With the old CLI
 
-* We need to start a CORS server (if wanting to communiacate with SFDC, i.e. when not using mock data).
+- We need to start a CORS server (if wanting to communiacate with SFDC, i.e. when not using mock data).
 
 ```
 npm run mobilecaddy cors
 ```
 
-* Start your app in a new shell with this
+- Start your app in a new shell with this
 
 ```
 ionic serve --p 3030
